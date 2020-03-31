@@ -1,0 +1,24 @@
+{
+  "name": "eat-around",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-handlebars": "^4.0.0",
+    "mysql2": "^1.7.0",
+    "sequelize": "^4.41.2"
+  },
+  "devDependencies": {
+    "handlebars-helper-css": "^0.1.0",
+    "sequelize-cli": "^5.5.1"
+  }
+}
