@@ -1,25 +1,25 @@
 $(document).ready(function() {
-  // Getting references to the name input and author container, as well as the table body
-  var nameInput = $("#author-name");
-  var authorList = $("tbody");
-  var authorContainer = $(".author-container");
+  // Getting references to the name input and restaurant container, as well as the table body
+  var nameInput = $("#restaurant-name");
+  var restaurantList = $("tbody");
+  var restaurantContainer = $(".restuarant-container");
   // Adding event listeners to the form to create a new object, and the button to delete
   // an Author
-  $(document).on("submit", "#author-form", handleAuthorFormSubmit);
-  $(document).on("click", ".delete-author", handleDeleteButtonPress);
+  $(document).on("submit", "#menu", handleRestaurantMenuSubmit);
+  $(document).on("click", ".delete-meal", handleDeleteButtonPress);
 
-  // Getting the initial list of Authors
-  getAuthors();
+  // Getting the initial list of restaurants
+  getrestaurants();
 
   // A function to handle what happens when the form is submitted to create a new Author
-  function handleAuthorFormSubmit(event) {
+  function handleRestaurantMenuSubmitt(event) {
     event.preventDefault();
     // Don't do anything if the name fields hasn't been filled out
     if (!nameInput.val().trim().trim()) {
       return;
     }
     // Calling the upsertAuthor function and passing in the value of the name input
-    upsertAuthor({
+    upsertRestuarant({
       name: nameInput
         .val()
         .trim()
