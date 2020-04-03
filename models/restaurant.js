@@ -1,28 +1,47 @@
-module.exports = function(sequelize, DataTypes) {
-  var Post = sequelize.define("Post", {
-    title: {
+module.exports = function (sequelize, DataTypes) {
+  var restaurant = sequelize.define("restaurant", {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1]
       }
     },
-    body: {
-      type: DataTypes.TEXT,
+    type: {
+      type: DataTypes.STRING,
       allowNull: false,
-      len: [1]
+      validate: {
+        len: [1]
+      }
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
+    body: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 1000]
+      }
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
+    },
+    favorite: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0,
     }
   });
-
-  Post.associate = function(models) {
-    // We're saying that a Post should belong to an Author
-    // A Post can't be created without an Author due to the foreign key constraint
-    Post.belongsTo(models.Author, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
-
-  return Post;
+  return restaurant;
 };
+
+  
+
+

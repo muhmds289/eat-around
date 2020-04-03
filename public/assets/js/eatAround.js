@@ -87,7 +87,7 @@ $(document).ready(function() {
     var id = listItemData.id;
     $.ajax({
       method: "DELETE",
-      url: "/api/authors/" + id
+      url: "/api/zomato/" + id
     })
       .then(getAuthors);
   }
