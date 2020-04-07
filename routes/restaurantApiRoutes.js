@@ -1,45 +1,69 @@
 var db = require("../models");
 
-module.exports = function(app) {
-  app.get("/api/authors", function(req, res) {
-    // Here we add an "include" property to our options in our findAll query
-    // We set the value to an array of the models we want to include in a left outer join
-    // In this case, just db.Post
-    db.Author.findAll({
-      include: [db.Post]
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
+module.exports = function (app) {
+  // Get all View sorted by different columns
+  // GET working to return review + user + restaurant
+  app.get("/api/view", function (req, res) {
+    db.Review.findAll({
+      attributes: ['body', 'rating', 'favorite'],
+      raw: true,
+      include: [
+        {
+          model: db.User,
+          attributes: ['name']
+        },
+        {
+          model: db.restaurant,
+          attributes: ['name', 'cuisine', 'price']
+          
+        }
+      ]
+    }).then(function (dbView) {
+      res.json(dbView);
     });
   });
 
-  app.get("/api/authors/:id", function(req, res) {
-    // Here we add an "include" property to our options in our findOne query
-    // We set the value to an array of the models we want to include in a left outer join
-    // In this case, just db.Post
-    db.Author.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [db.Post]
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
+
+  app.post("/api/eatAround", function (req, res) {
+    console.log(req.body)
+    db.eatAround.create(req.body).then(function (dbAddWhiskey) {
+      // res.json(dbeatAround);
     });
   });
 
-  app.post("/api/authors", function(req, res) {
-    db.Author.create(req.body).then(function(dbAuthor) {
-      res.json(dbAuthor);
-    });
-  });
-
-  app.delete("/api/authors/:id", function(req, res) {
-    db.Author.destroy({
+  app.delete("/api/restaurant/:id", function(req, res) {
+    db.restaurant.destroy({
       where: {
         id: req.params.id
       }
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
+    }).then(function (dbRestaurant) {
+      res.render('viewRestaurant',{
+        restaurants: dbRestaurant
+      })
+    });
+
+  });
+
+  app.post("/api/addReview", function (req, res) {
+    console.log(req.body)
+    db.Review.create(req.body).then(function (dbeatAround) {
+      // res.json(dbeatAround);
     });
   });
 
+  app.post("/api/addUser", function (req, res) {
+    console.log(req.body)
+    db.User.create(req.body).then(function (dbAddUser) {
+      res.json(dbAddUser);
+      console.log(dbAddUser)
+    });
+  });
+
+  app.post("/api/addReview", function (req, res) {
+    console.log(req.body)
+    db.Review.create(req.body).then(function (dbAddReview) {
+      res.json(dbAddReview);
+      console.log(dbAddReview)
+    });
+  });
 };
